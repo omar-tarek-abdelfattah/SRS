@@ -1,0 +1,296 @@
+"use client";
+
+import React, { useState } from "react";
+import { useApp } from "@/context/AppContext";
+
+export default function ContactPage() {
+  const { triggerToast } = useApp();
+  const [submitting, setSubmitting] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    inquiryType: "Admissions & Matriculation",
+    jurisdiction: "United Kingdom & Europe",
+    message: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    setTimeout(() => {
+      setSubmitting(false);
+      triggerToast("Formal Petition Dispatched to the Institute Registry. You will receive an official response within 24 hours.");
+      setForm({
+        name: "",
+        email: "",
+        inquiryType: "Admissions & Matriculation",
+        jurisdiction: "United Kingdom & Europe",
+        message: "",
+      });
+    }, 1200);
+  };
+
+  const faqs = [
+    {
+      q: "What are the matriculation prerequisites for candidate fellows?",
+      a: "Applicants should hold an undergraduate degree in law (LL.B, JD) or demonstrate equivalent professional standing within a recognized judiciary, government counsel office, or qualified legal practice. Emerging tech practitioners with patent experience may qualify under special review."
+    },
+    {
+      q: "How are CLE, SRA, and international credits certified?",
+      a: "SRS Legal Institute is accredited across major jurisdictions. All modules grant verifiable Continuing Legal Education (CLE) and Continuing Professional Development (CPD) hours. Upon completion, fellows receive cryptographically verified digital diplomas."
+    },
+    {
+      q: "Are discourses and Socratic colloquia held synchronously or asynchronously?",
+      a: "Our core lectures, annotated case briefs, and statutory analysis modules are accessible 24/7. Live Socratic interrogations with faculty chairs take place weekly at scheduled intervals and are recorded with full judicial transcripts."
+    },
+    {
+      q: "Can law firms and chambers license institutional enterprise access?",
+      a: "Yes. Premier chambers and international law firms frequently enroll incoming associate classes into our JurisDoctorate Essentials and Technology Law curriculums. Tailored jurisdictional tracks and cohort benchmarking are provided."
+    },
+    {
+      q: "What is the examination and moot bench evaluation protocol?",
+      a: "Assessments are not multiple-choice tests. Fellows submit formal appellate briefs and participate in recorded oral arguments judged by former appellate judges and supreme court advocates against rigorous bench rubrics."
+    }
+  ];
+
+  return (
+    <>
+      {/* Page Hero */}
+      <section className="page-hero">
+        <div className="container">
+          <div className="page-hero-inner">
+            <span className="pill-badge" style={{ marginBottom: "16px" }}>
+              INSTITUTIONAL REGISTRY
+            </span>
+            <h1 className="display-md page-hero-title">
+              Inquiries & Institutional Access
+            </h1>
+            <p className="body-lg">
+              Connect with the Academic Registry, Admissions Senate, or Chambers Administration regarding fellowships, corporate cohorts, or faculty colloquia.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content Layout */}
+      <section className="container">
+        <div className="contact-layout-grid">
+          {/* Left: Contact Form Panel */}
+          <div className="contact-form-panel">
+            <h2 className="headline-lg" style={{ marginBottom: "8px" }}>
+              Submit Formal Petition
+            </h2>
+            <p className="body-md" style={{ marginBottom: "32px" }}>
+              Please complete the inquiry dossier below. All communications are protected under academic attorney-client privilege guidelines.
+            </p>
+
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label className="form-label" htmlFor="contact-name">
+                  Full Name & Title
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  required
+                  className="form-control"
+                  placeholder="e.g. Barrister Jonathan Sterling, KC"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="contact-email">
+                  Institutional / Chambers Email
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  required
+                  className="form-control"
+                  placeholder="j.sterling@lincolnsinn.org.uk"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="contact-inquiry">
+                  Nature of Inquiry
+                </label>
+                <select
+                  id="contact-inquiry"
+                  className="form-control select-control"
+                  value={form.inquiryType}
+                  onChange={(e) => setForm({ ...form, inquiryType: e.target.value })}
+                >
+                  <option value="Admissions & Matriculation">Admissions & Fellowships</option>
+                  <option value="Firm & Corporate Licensing">Chambers & Firm Cohort Licensing</option>
+                  <option value="Continuing Legal Education">CLE / CPD Accreditation Verification</option>
+                  <option value="Faculty & Academic Collaboration">Academic Colloquium & Research</option>
+                  <option value="Press & Institutional Affairs">Press & Judicial Communications</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="contact-jurisdiction">
+                  Primary Jurisdiction of Concern
+                </label>
+                <select
+                  id="contact-jurisdiction"
+                  className="form-control select-control"
+                  value={form.jurisdiction}
+                  onChange={(e) => setForm({ ...form, jurisdiction: e.target.value })}
+                >
+                  <option value="United Kingdom & Europe">United Kingdom & Europe (Common / Civil)</option>
+                  <option value="United States Federal & State">United States Federal & State Benches</option>
+                  <option value="Middle East & GCC">Middle East & GCC Arbitration Benches</option>
+                  <option value="Asia-Pacific & Singapore">Asia-Pacific & SICC / HKIAC</option>
+                  <option value="Supranational / International">Supranational (The Hague / ICSID / WTO)</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="contact-message">
+                  Statement of Intent / Inquiry Details
+                </label>
+                <textarea
+                  id="contact-message"
+                  required
+                  className="form-control"
+                  placeholder="Specify candidate background, cohort scale, or research questions for the Academic Registry..."
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{ width: "100%", marginTop: "12px" }}
+                disabled={submitting}
+              >
+                {submitting ? "Transmitting to Registry..." : "Transmit Formal Petition"}
+              </button>
+            </form>
+          </div>
+
+          {/* Right: Chambers and Contacts Panel */}
+          <div className="contact-info-panel">
+            {/* Global Chambers */}
+            <div className="chambers-card">
+              <span className="pill-badge" style={{ marginBottom: "12px" }}>
+                PERMANENT REGISTRIES
+              </span>
+              <h3 className="chambers-title">Global Institute Chambers</h3>
+              <p className="body-md" style={{ fontSize: "14px" }}>
+                Physical offices and moot court simulation facilities for matriculated fellows.
+              </p>
+
+              <div className="chambers-list">
+                <div className="chamber-location-item">
+                  <div className="chamber-city">London Chambers</div>
+                  <div className="chamber-address">
+                    12 Lincoln&apos;s Inn Fields, Holborn<br />
+                    London WC2A 3TL, United Kingdom<br />
+                    <span style={{ fontSize: "12px", color: "var(--primary)" }}>+44 20 7946 0912</span>
+                  </div>
+                </div>
+
+                <div className="chamber-location-item">
+                  <div className="chamber-city">New York Registry</div>
+                  <div className="chamber-address">
+                    450 Lexington Avenue, 28th Floor<br />
+                    New York, NY 10017, United States<br />
+                    <span style={{ fontSize: "12px", color: "var(--primary)" }}>+1 (212) 555-0188</span>
+                  </div>
+                </div>
+
+                <div className="chamber-location-item">
+                  <div className="chamber-city">Geneva Bureau</div>
+                  <div className="chamber-address">
+                    14 Rue du Rhône, Quartier des Banques<br />
+                    1204 Genève, Switzerland<br />
+                    <span style={{ fontSize: "12px", color: "var(--primary)" }}>+41 22 518 90 40</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Direct Admissions Hotline */}
+            <div className="chambers-card">
+              <span className="pill-badge" style={{ marginBottom: "12px" }}>
+                REGISTRAR DESK
+              </span>
+              <h3 className="chambers-title">Admissions Hotline</h3>
+              <p className="body-md" style={{ fontSize: "14px", marginBottom: "16px" }}>
+                Direct channels for prospective fellows, corporate deans, and CLE registrars.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", fontSize: "14px" }}>
+                <div>
+                  <strong>General Inquiries:</strong>{" "}
+                  <a href="mailto:admissions@srslegal.org" style={{ textDecoration: "underline" }}>
+                    admissions@srslegal.org
+                  </a>
+                </div>
+                <div>
+                  <strong>Academic Senate:</strong>{" "}
+                  <a href="mailto:senate@srslegal.org" style={{ textDecoration: "underline" }}>
+                    senate@srslegal.org
+                  </a>
+                </div>
+                <div>
+                  <strong>Firm Enterprise Partnerships:</strong>{" "}
+                  <a href="mailto:partnerships@srslegal.org" style={{ textDecoration: "underline" }}>
+                    partnerships@srslegal.org
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Accordion Section */}
+      <section className="faq-section">
+        <div className="container">
+          <div className="section-header" style={{ textAlign: "center" }}>
+            <span className="pill-badge" style={{ marginBottom: "14px" }}>
+              INSTITUTIONAL PROTOCOLS
+            </span>
+            <h2 className="section-title">Frequently Examined Inquiries</h2>
+            <p className="section-subhead">
+              Details on matriculation, grading standards, CLE certifications, and moot participation.
+            </p>
+          </div>
+
+          <div className="faq-accordion">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div key={idx} className={`faq-item ${isOpen ? "open" : ""}`}>
+                  <button
+                    type="button"
+                    className="faq-trigger"
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    aria-expanded={isOpen}
+                  >
+                    <span>{faq.q}</span>
+                    <span className="faq-icon">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  <div className="faq-content">
+                    {faq.a}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
