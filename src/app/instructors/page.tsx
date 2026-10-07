@@ -91,7 +91,7 @@ export default function InstructorsPage() {
       {/* Page Hero */}
       <section className="page-hero">
         <div className="container">
-          <div className="page-hero-inner">
+          <div className="page-hero-inner reveal">
             <span className="pill-badge" style={{ marginBottom: "16px" }}>
               ACADEMIC SENATE & JURISTS
             </span>
@@ -106,7 +106,7 @@ export default function InstructorsPage() {
       </section>
 
       {/* Filter Bar */}
-      <div className="faculty-filter-bar">
+      <div className="faculty-filter-bar reveal delay-75">
         <div className="container">
           <div className="filter-categories" style={{ justifyContent: "center" }}>
             <button
@@ -152,7 +152,7 @@ export default function InstructorsPage() {
       <section className="instructors-roster">
         <div className="container">
           {filteredFaculty.map((member) => (
-            <div key={member.id} className="instructor-expanded-card">
+            <div key={member.id} className="instructor-expanded-card reveal-scale">
               {/* Left Photo */}
               <div className="instructor-card-media">
                 <Image
@@ -242,7 +242,7 @@ export default function InstructorsPage() {
       {/* Guest Lecturers and Visiting Judges */}
       <section className="programs-section" style={{ backgroundColor: "var(--surface)" }}>
         <div className="container">
-          <div className="section-header" style={{ textAlign: "center" }}>
+          <div className="section-header reveal" style={{ textAlign: "center" }}>
             <span className="pill-badge" style={{ marginBottom: "14px" }}>
               VISITING JURISTS & CHAIRS
             </span>
@@ -253,22 +253,22 @@ export default function InstructorsPage() {
           </div>
 
           <div className="metrics-grid" style={{ marginTop: "40px" }}>
-            <div className="metric-item">
+            <div className="metric-item reveal delay-75">
               <span className="faculty-name" style={{ fontSize: "18px" }}>Lord Chancellor Peter Croft</span>
               <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>King&apos;s Bench Division (Ret.)</span>
               <p className="body-md" style={{ fontSize: "13px" }}>Directing the Annual Hilary Moot Championship on supranational commercial jurisdiction.</p>
             </div>
-            <div className="metric-item">
+            <div className="metric-item reveal delay-150">
               <span className="faculty-name" style={{ fontSize: "18px" }}>Dame Miriam O&apos;Connor</span>
               <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>High Court of Admiralty</span>
               <p className="body-md" style={{ fontSize: "13px" }}>Leading specialized colloquia on maritime salvage rights and cross-border arrest of ships.</p>
             </div>
-            <div className="metric-item">
+            <div className="metric-item reveal delay-200">
               <span className="faculty-name" style={{ fontSize: "18px" }}>Dr. Aris Thorne</span>
               <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>Geneva Institute of Diplomatic Law</span>
               <p className="body-md" style={{ fontSize: "13px" }}>Overseeing sovereign immunity seminars and extraterritorial economic sanctions frameworks.</p>
             </div>
-            <div className="metric-item">
+            <div className="metric-item reveal delay-250">
               <span className="faculty-name" style={{ fontSize: "18px" }}>Justice Evelyn Chen</span>
               <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>Singapore International Commercial Court</span>
               <p className="body-md" style={{ fontSize: "13px" }}>Chairing masterclasses on multi-tiered dispute resolution in Asian commercial corridors.</p>

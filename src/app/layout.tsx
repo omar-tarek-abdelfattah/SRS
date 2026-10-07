@@ -8,6 +8,8 @@ import EnrollmentModal from "@/components/EnrollmentModal";
 import DiscourseModal from "@/components/DiscourseModal";
 import SyllabusDrawer from "@/components/SyllabusDrawer";
 import Toast from "@/components/Toast";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import ScrollObserver from "@/components/ScrollObserver";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -25,6 +27,14 @@ export const metadata: Metadata = {
   title: "SRS Legal Institute | AL-QANUN - Modern Jurisprudence & E-Learning",
   description: "A rigorous, contemporary approach to legal education. Master the architecture of law with world-class jurists, appellate simulations, and specialized curricula.",
   keywords: ["legal education", "e-learning", "law courses", "jurisprudence", "SRS legal institute", "al-qanun", "CLE credits", "corporate law"],
+  icons: {
+    icon: [
+      { url: "/icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/apple-icon.png", sizes: "192x192", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "SRS Legal Institute | AL-QANUN - Modern Jurisprudence",
     description: "Master the architecture of law with world-class faculty and structured pathways designed for modern practitioners.",
@@ -48,6 +58,8 @@ export default function RootLayout({
           <DiscourseModal />
           <SyllabusDrawer />
           <Toast />
+          <WhatsAppButton />
+          <ScrollObserver />
         </AppProvider>
       </body>
     </html>

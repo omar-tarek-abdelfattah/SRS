@@ -45,7 +45,7 @@ export default function HomePage() {
         <div className="container">
           <div className="hero-grid">
             {/* Left Content */}
-            <div className="hero-content">
+            <div className="hero-content reveal">
               <span className="pill-badge hero-pill">
                 MODERN JURISPRUDENCE
               </span>
@@ -81,7 +81,7 @@ export default function HomePage() {
             </div>
 
             {/* Right Architectural Visual */}
-            <div className="hero-visual">
+            <div className="hero-visual reveal-scale delay-150">
               <div className="hero-image-wrapper">
                 <Image
                   src="/assets/hero-monolith.jpg"
@@ -101,19 +101,19 @@ export default function HomePage() {
       <section className="metrics-strip">
         <div className="container">
           <div className="metrics-grid">
-            <div className="metric-item">
+            <div className="metric-item reveal delay-75">
               <span className="metric-number">98.4%</span>
               <span className="metric-label">Bar & Tribunal Examination Pass Rate</span>
             </div>
-            <div className="metric-item">
+            <div className="metric-item reveal delay-150">
               <span className="metric-number">45+</span>
               <span className="metric-label">Accredited Specialization Modules</span>
             </div>
-            <div className="metric-item">
+            <div className="metric-item reveal delay-200">
               <span className="metric-number">140+</span>
               <span className="metric-label">Partner Chambers, Firms & Tribunals</span>
             </div>
-            <div className="metric-item">
+            <div className="metric-item reveal delay-300">
               <span className="metric-number">12:1</span>
               <span className="metric-label">Candidate Fellow to Senior Jurist Ratio</span>
             </div>
@@ -124,7 +124,7 @@ export default function HomePage() {
       {/* 3. LIVE DISCOURSE SECTION (Matches screen.png) */}
       <section className="discourse-section">
         <div className="container">
-          <div className="section-header flex-header">
+          <div className="section-header flex-header reveal">
             <div>
               <h2 className="section-title">Live Discourse</h2>
               <p className="section-subhead">
@@ -138,7 +138,7 @@ export default function HomePage() {
 
           <div className="discourse-grid">
             {/* Discourse Card 1 */}
-            <div className="discourse-card">
+            <div className="discourse-card reveal delay-100">
               <div>
                 <div className="discourse-card-top">
                   <span className="pill-badge dark">SEMINAR</span>
@@ -185,7 +185,7 @@ export default function HomePage() {
             </div>
 
             {/* Discourse Card 2 */}
-            <div className="discourse-card">
+            <div className="discourse-card reveal delay-200">
               <div>
                 <div className="discourse-card-top">
                   <span className="pill-badge" style={{ backgroundColor: "var(--neutral-stone)" }}>
@@ -239,7 +239,7 @@ export default function HomePage() {
       {/* 4. CURATED PROGRAMS SECTION (Matches screen.png) */}
       <section className="programs-section">
         <div className="container">
-          <div className="section-header">
+          <div className="section-header reveal">
             <h2 className="section-title">Curated Programs</h2>
             <p className="section-subhead">
               Structured pathways designed to impart absolute mastery over specific legal domains.
@@ -249,7 +249,7 @@ export default function HomePage() {
           <div className="programs-grid">
             {/* Large Featured Core Track Card */}
             <div
-              className="program-card program-card-core"
+              className="program-card program-card-core reveal-scale"
               onClick={() => openSyllabus("jd-essentials")}
               role="button"
               tabIndex={0}
@@ -286,7 +286,7 @@ export default function HomePage() {
             <div className="programs-subgrid">
               {/* Subcard 1 */}
               <div
-                className="program-card program-card-compact"
+                className="program-card program-card-compact reveal delay-100"
                 onClick={() => openSyllabus("intl-treaties")}
                 role="button"
                 tabIndex={0}
@@ -315,7 +315,7 @@ export default function HomePage() {
 
               {/* Subcard 2 */}
               <div
-                className="program-card program-card-compact"
+                className="program-card program-card-compact reveal delay-150"
                 onClick={() => openSyllabus("tech-ip")}
                 role="button"
                 tabIndex={0}
@@ -347,7 +347,7 @@ export default function HomePage() {
 
               {/* Subcard 3 */}
               <div
-                className="program-card program-card-compact"
+                className="program-card program-card-compact reveal delay-200"
                 onClick={() => openSyllabus("corporate-restructure")}
                 role="button"
                 tabIndex={0}
@@ -373,7 +373,7 @@ export default function HomePage() {
               </div>
 
               {/* Subcard 4: Solid Black Accent Card (Matches screen.png) */}
-              <div className="program-card program-card-black">
+              <div className="program-card program-card-black reveal-scale delay-250">
                 <div style={{ color: "#ffffff", opacity: 0.8 }}>
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -398,7 +398,7 @@ export default function HomePage() {
       {/* 5. FACULTY SPOTLIGHT SECTION */}
       <section className="faculty-spotlight">
         <div className="container">
-          <div className="section-header flex-header">
+          <div className="section-header flex-header reveal">
             <div>
               <h2 className="section-title">The Jurists & Scholars</h2>
               <p className="section-subhead">
@@ -412,7 +412,7 @@ export default function HomePage() {
 
           <div className="faculty-grid">
             {/* Faculty 1 */}
-            <div className="faculty-card">
+            <div className="faculty-card reveal-scale delay-100">
               <div className="faculty-photo-wrap">
                 <Image
                   src="/assets/faculty-rostova.jpg"
@@ -434,7 +434,7 @@ export default function HomePage() {
             </div>
 
             {/* Faculty 2 */}
-            <div className="faculty-card">
+            <div className="faculty-card reveal-scale delay-150">
               <div className="faculty-photo-wrap">
                 <Image
                   src="/assets/faculty-vance.jpg"
@@ -456,7 +456,7 @@ export default function HomePage() {
             </div>
 
             {/* Faculty 3 */}
-            <div className="faculty-card">
+            <div className="faculty-card reveal-scale delay-200">
               <div className="faculty-photo-wrap">
                 <Image
                   src="/assets/faculty-almansoor.jpg"
@@ -478,7 +478,7 @@ export default function HomePage() {
             </div>
 
             {/* Faculty 4 */}
-            <div className="faculty-card">
+            <div className="faculty-card reveal-scale delay-250">
               <div className="faculty-photo-wrap">
                 <Image
                   src="/assets/faculty-sterling.jpg"
@@ -505,7 +505,7 @@ export default function HomePage() {
       {/* 6. CALL TO ACTION SECTION */}
       <section className="cta-section">
         <div className="container">
-          <div className="cta-box">
+          <div className="cta-box reveal-scale">
             <div>
               <span className="pill-badge" style={{ backgroundColor: "rgba(255, 255, 255, 0.12)", color: "#ffffff", borderColor: "rgba(255,255,255,0.2)", marginBottom: "16px" }}>
                 ROLLING MATRICULATION
