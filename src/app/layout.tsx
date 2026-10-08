@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, Inter, Cairo } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
 import { AppProvider } from "@/context/AppContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,6 +11,13 @@ import SyllabusDrawer from "@/components/SyllabusDrawer";
 import Toast from "@/components/Toast";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollObserver from "@/components/ScrollObserver";
+
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  variable: "--font-cairo",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -24,9 +32,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SRS Legal Institute | AL-QANUN - Modern Jurisprudence & E-Learning",
-  description: "A rigorous, contemporary approach to legal education. Master the architecture of law with world-class jurists, appellate simulations, and specialized curricula.",
-  keywords: ["legal education", "e-learning", "law courses", "jurisprudence", "SRS legal institute", "al-qanun", "CLE credits", "corporate law"],
+  title: "معهد إس آر إس القانوني | SRS Legal Institute",
+  description: "منهج معاصر ورصين للتعليم القانوني. إتقان البنية المعمارية للقانون مع كبار الفقهاء والمحكمين الدوليين.",
+  keywords: ["legal education", "e-learning", "law courses", "jurisprudence", "SRS legal institute", "al-qanun", "CLE credits", "corporate law", "القانون", "تعليم قانوني"],
   icons: {
     icon: [
       { url: "/icon.png", sizes: "32x32", type: "image/png" },
@@ -36,8 +44,8 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "SRS Legal Institute | AL-QANUN - Modern Jurisprudence",
-    description: "Master the architecture of law with world-class faculty and structured pathways designed for modern practitioners.",
+    title: "معهد إس آر إس القانوني - SRS Legal Institute",
+    description: "إتقان البنية المعمارية للقانون عبر مسارات مهيكلة يقودها كبار القضاة والفقهاء.",
     type: "website",
   },
 };
@@ -48,20 +56,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="ar" dir="rtl" className={`${cairo.variable} ${playfair.variable} ${inter.variable}`}>
       <body>
-        <AppProvider>
-          <Header />
-          <main style={{ flex: 1 }}>{children}</main>
-          <Footer />
-          <EnrollmentModal />
-          <DiscourseModal />
-          <SyllabusDrawer />
-          <Toast />
-          <WhatsAppButton />
-          <ScrollObserver />
-        </AppProvider>
+        <LanguageProvider>
+          <AppProvider>
+            <Header />
+            <main style={{ flex: 1 }}>{children}</main>
+            <Footer />
+            <EnrollmentModal />
+            <DiscourseModal />
+            <SyllabusDrawer />
+            <Toast />
+            <WhatsAppButton />
+            <ScrollObserver />
+          </AppProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
 }
+

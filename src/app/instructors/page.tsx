@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useApp } from "@/context/AppContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface FacultyMember {
   id: string;
@@ -80,6 +81,7 @@ const FACULTY_MEMBERS: FacultyMember[] = [
 
 export default function InstructorsPage() {
   const { openSyllabus, openDiscourse, triggerToast } = useApp();
+  const { t } = useLanguage();
   const [activeDiscipline, setActiveDiscipline] = useState<string>("all");
 
   const filteredFaculty = FACULTY_MEMBERS.filter(
@@ -93,13 +95,15 @@ export default function InstructorsPage() {
         <div className="container">
           <div className="page-hero-inner reveal">
             <span className="pill-badge" style={{ marginBottom: "16px" }}>
-              ACADEMIC SENATE & JURISTS
+              {t("ACADEMIC SENATE & JURISTS")}
             </span>
             <h1 className="display-md page-hero-title">
-              The Faculty of Jurists & Scholars
+              {t("The Faculty of Jurists & Scholars")}
             </h1>
             <p className="body-lg">
-              Education at SRS Legal Institute is commanded by sitting arbitrators, retired appellate jurists, and leading legal theoreticians who draft the precedents shaping global jurisprudence.
+              {t(
+                "Education at SRS Legal Institute is commanded by sitting arbitrators, retired appellate jurists, and leading legal theoreticians who draft the precedents shaping global jurisprudence."
+              )}
             </p>
           </div>
         </div>
@@ -108,41 +112,41 @@ export default function InstructorsPage() {
       {/* Filter Bar */}
       <div className="faculty-filter-bar reveal delay-75">
         <div className="container">
-          <div className="filter-categories" style={{ justifyContent: "center" }}>
+          <div className="filter-categories mt-5" style={{ justifyContent: "center" }}>
             <button
               type="button"
               className={`filter-pill ${activeDiscipline === "all" ? "active" : ""}`}
               onClick={() => setActiveDiscipline("all")}
             >
-              All Faculty ({FACULTY_MEMBERS.length})
+              {t("All Faculty")} ({FACULTY_MEMBERS.length})
             </button>
             <button
               type="button"
               className={`filter-pill ${activeDiscipline === "constitutional" ? "active" : ""}`}
               onClick={() => setActiveDiscipline("constitutional")}
             >
-              Constitutional Bench
+              {t("Constitutional Bench")}
             </button>
             <button
               type="button"
               className={`filter-pill ${activeDiscipline === "corporate" ? "active" : ""}`}
               onClick={() => setActiveDiscipline("corporate")}
             >
-              Corporate Restructuring
+              {t("Corporate Restructuring")}
             </button>
             <button
               type="button"
               className={`filter-pill ${activeDiscipline === "intl" ? "active" : ""}`}
               onClick={() => setActiveDiscipline("intl")}
             >
-              International & Treaties
+              {t("International & Treaties")}
             </button>
             <button
               type="button"
               className={`filter-pill ${activeDiscipline === "tech" ? "active" : ""}`}
               onClick={() => setActiveDiscipline("tech")}
             >
-              Technology & AI Ethics
+              {t("Technology & AI Ethics")}
             </button>
           </div>
         </div>
@@ -157,7 +161,7 @@ export default function InstructorsPage() {
               <div className="instructor-card-media">
                 <Image
                   src={member.photo}
-                  alt={member.name}
+                  alt={t(member.name)}
                   width={600}
                   height={600}
                   style={{ objectFit: "cover", width: "100%", height: "100%" }}
@@ -168,36 +172,36 @@ export default function InstructorsPage() {
               <div className="instructor-card-body">
                 <div>
                   <div className="instructor-header-group">
-                    <span className="instructor-honorific">{member.honorific}</span>
-                    <h2 className="instructor-faculty-title">{member.name}</h2>
+                    <span className="instructor-honorific">{t(member.honorific)}</span>
+                    <h2 className="instructor-faculty-title">{t(member.name)}</h2>
                     <p className="label-md" style={{ color: "var(--primary)", marginTop: "4px" }}>
-                      {member.chair}
+                      {t(member.chair)}
                     </p>
                   </div>
 
                   <p className="body-md" style={{ marginBottom: "20px" }}>
-                    {member.bio}
+                    {t(member.bio)}
                   </p>
 
                   <div className="instructor-dossier-list">
                     <div className="dossier-item">
-                      <span className="dossier-item-label">Prior Appointment</span>
-                      <span className="dossier-item-val">{member.formerRole}</span>
+                      <span className="dossier-item-label">{t("Prior Appointment")}</span>
+                      <span className="dossier-item-val">{t(member.formerRole)}</span>
                     </div>
                     <div className="dossier-item">
-                      <span className="dossier-item-label">Curriculum Lead</span>
-                      <span className="dossier-item-val">{member.courseTitle}</span>
+                      <span className="dossier-item-label">{t("Curriculum Lead")}</span>
+                      <span className="dossier-item-val">{t(member.courseTitle)}</span>
                     </div>
                     <div className="dossier-item">
-                      <span className="dossier-item-label">Seminars Taught</span>
-                      <span className="dossier-item-val">{member.cleTaught}</span>
+                      <span className="dossier-item-label">{t("Seminars Taught")}</span>
+                      <span className="dossier-item-val">{t(member.cleTaught)}</span>
                     </div>
                   </div>
 
                   <div style={{ padding: "14px 18px", backgroundColor: "var(--surface)", borderRadius: "var(--radius-base)", border: "1px solid var(--border-hairline)" }}>
-                    <span className="dossier-item-label">Key Published Treatise</span>
+                    <span className="dossier-item-label">{t("Key Published Treatise")}</span>
                     <p style={{ fontStyle: "italic", fontSize: "13px", marginTop: "4px", color: "var(--on-surface)" }}>
-                      &ldquo;{member.treatise}&rdquo;
+                      &ldquo;{t(member.treatise)}&rdquo;
                     </p>
                   </div>
                 </div>
@@ -208,21 +212,21 @@ export default function InstructorsPage() {
                     className="btn btn-outline"
                     onClick={() => openSyllabus(member.courseId)}
                   >
-                    View Assigned Curriculum
+                    {t("View Assigned Curriculum")}
                   </button>
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() => openDiscourse(`Colloquium with ${member.name}`)}
+                    onClick={() => openDiscourse(t("Colloquium with {name}", { name: t(member.name) }))}
                   >
-                    Request Socratic Pass
+                    {t("Request Socratic Pass")}
                   </button>
                   <button
                     type="button"
                     className="btn btn-outline"
-                    onClick={() => triggerToast(`Academic Dossier for ${member.name} copied to clipboard.`)}
+                    onClick={() => triggerToast(t("Academic Dossier for {name} copied to clipboard.", { name: t(member.name) }))}
                     style={{ padding: "0 16px" }}
-                    title="Share Academic Profile"
+                    title={t("Share Academic Profile")}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="18" cy="5" r="3"></circle>
@@ -244,34 +248,34 @@ export default function InstructorsPage() {
         <div className="container">
           <div className="section-header reveal" style={{ textAlign: "center" }}>
             <span className="pill-badge" style={{ marginBottom: "14px" }}>
-              VISITING JURISTS & CHAIRS
+              {t("VISITING JURISTS & CHAIRS")}
             </span>
-            <h2 className="section-title">Honorary Bench Lecturers</h2>
+            <h2 className="section-title">{t("Honorary Bench Lecturers")}</h2>
             <p className="section-subhead">
-              SRS Fellows regularly engage with guest lecturers from supreme tribunals and premier law chambers around the world.
+              {t("SRS Fellows regularly engage with guest lecturers from supreme tribunals and premier law chambers around the world.")}
             </p>
           </div>
 
           <div className="metrics-grid" style={{ marginTop: "40px" }}>
             <div className="metric-item reveal delay-75">
-              <span className="faculty-name" style={{ fontSize: "18px" }}>Lord Chancellor Peter Croft</span>
-              <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>King&apos;s Bench Division (Ret.)</span>
-              <p className="body-md" style={{ fontSize: "13px" }}>Directing the Annual Hilary Moot Championship on supranational commercial jurisdiction.</p>
+              <span className="faculty-name" style={{ fontSize: "18px" }}>{t("Lord Chancellor Peter Croft")}</span>
+              <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>{t("King's Bench Division (Ret.)")}</span>
+              <p className="body-md" style={{ fontSize: "13px" }}>{t("Directing the Annual Hilary Moot Championship on supranational commercial jurisdiction.")}</p>
             </div>
             <div className="metric-item reveal delay-150">
-              <span className="faculty-name" style={{ fontSize: "18px" }}>Dame Miriam O&apos;Connor</span>
-              <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>High Court of Admiralty</span>
-              <p className="body-md" style={{ fontSize: "13px" }}>Leading specialized colloquia on maritime salvage rights and cross-border arrest of ships.</p>
+              <span className="faculty-name" style={{ fontSize: "18px" }}>{t("Dame Miriam O'Connor")}</span>
+              <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>{t("High Court of Admiralty")}</span>
+              <p className="body-md" style={{ fontSize: "13px" }}>{t("Leading specialized colloquia on maritime salvage rights and cross-border arrest of ships.")}</p>
             </div>
             <div className="metric-item reveal delay-200">
-              <span className="faculty-name" style={{ fontSize: "18px" }}>Dr. Aris Thorne</span>
-              <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>Geneva Institute of Diplomatic Law</span>
-              <p className="body-md" style={{ fontSize: "13px" }}>Overseeing sovereign immunity seminars and extraterritorial economic sanctions frameworks.</p>
+              <span className="faculty-name" style={{ fontSize: "18px" }}>{t("Dr. Aris Thorne")}</span>
+              <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>{t("Geneva Institute of Diplomatic Law")}</span>
+              <p className="body-md" style={{ fontSize: "13px" }}>{t("Overseeing sovereign immunity seminars and extraterritorial economic sanctions frameworks.")}</p>
             </div>
             <div className="metric-item reveal delay-250">
-              <span className="faculty-name" style={{ fontSize: "18px" }}>Justice Evelyn Chen</span>
-              <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>Singapore International Commercial Court</span>
-              <p className="body-md" style={{ fontSize: "13px" }}>Chairing masterclasses on multi-tiered dispute resolution in Asian commercial corridors.</p>
+              <span className="faculty-name" style={{ fontSize: "18px" }}>{t("Justice Evelyn Chen")}</span>
+              <span className="instructor-honorific" style={{ fontSize: "11px", margin: "4px 0" }}>{t("Singapore International Commercial Court")}</span>
+              <p className="body-md" style={{ fontSize: "13px" }}>{t("Chairing masterclasses on multi-tiered dispute resolution in Asian commercial corridors.")}</p>
             </div>
           </div>
         </div>

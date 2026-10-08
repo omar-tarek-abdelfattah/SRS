@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function EnrollmentModal() {
   const { isEnrollOpen, closeEnroll, enrollCourseTitle, triggerToast } = useApp();
+  const { t } = useLanguage();
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -23,7 +25,12 @@ export default function EnrollmentModal() {
     setTimeout(() => {
       setSubmitting(false);
       closeEnroll();
-      triggerToast(`Admissions Dossier received for ${formData.fullName || "Applicant"}. SRS Registrar will review within 24 hours.`);
+      triggerToast(
+        t(
+          "Admissions Dossier received for {name}. SRS Registrar will review within 24 hours.",
+          { name: formData.fullName || "Applicant" }
+        )
+      );
       setFormData({
         fullName: "",
         email: "",
@@ -46,28 +53,27 @@ export default function EnrollmentModal() {
           type="button"
           className="modal-close-btn"
           onClick={closeEnroll}
-          aria-label="Close modal"
+          aria-label={t("Close")}
         >
           &times;
         </button>
 
         <span className="pill-badge" style={{ marginBottom: "16px" }}>
-          ADMISSIONS & ENROLLMENT
+          {t("ADMISSIONS & ENROLLMENT")}
         </span>
 
         <h3 className="headline-lg" style={{ marginBottom: "8px" }}>
-          Candidate Matriculation
+          {t("Candidate Matriculation")}
         </h3>
 
         <p className="body-md" style={{ marginBottom: "28px" }}>
-          Registering application for: <strong>{enrollCourseTitle}</strong>.
-          Our admissions board evaluates prior academic standing and professional acumen.
+          {t("Enter your academic and professional credentials to petition for entry into")}: <strong>{t(enrollCourseTitle)}</strong>.
         </p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label" htmlFor="modal-name">
-              Full Legal Name
+              {t("Full Legal Name")}
             </label>
             <input
               id="modal-name"
@@ -82,7 +88,7 @@ export default function EnrollmentModal() {
 
           <div className="form-group">
             <label className="form-label" htmlFor="modal-email">
-              Institutional Email
+              {t("Institutional / Contact Email")}
             </label>
             <input
               id="modal-email"
@@ -97,7 +103,7 @@ export default function EnrollmentModal() {
 
           <div className="form-group">
             <label className="form-label" htmlFor="modal-jurisdiction">
-              Primary Jurisdiction of Practice
+              {t("Jurisdiction / Bar Association")}
             </label>
             <select
               id="modal-jurisdiction"
@@ -116,7 +122,7 @@ export default function EnrollmentModal() {
 
           <div className="form-group">
             <label className="form-label" htmlFor="modal-background">
-              Current Title & Organization
+              {t("Academic Credentials")} / {t("Specialization & Research Focus")}
             </label>
             <input
               id="modal-background"
@@ -135,7 +141,7 @@ export default function EnrollmentModal() {
               style={{ flex: 1 }}
               onClick={closeEnroll}
             >
-              Cancel
+              {t("Cancel")}
             </button>
             <button
               type="submit"
@@ -143,7 +149,7 @@ export default function EnrollmentModal() {
               style={{ flex: 1.5 }}
               disabled={submitting}
             >
-              {submitting ? "Transmitting..." : "Submit Application"}
+              {submitting ? t("Processing Dossier...") : t("Submit Formal Application")}
             </button>
           </div>
         </form>

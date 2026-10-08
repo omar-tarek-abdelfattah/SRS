@@ -4,9 +4,11 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useApp } from "@/context/AppContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HomePage() {
   const { openSyllabus, openEnroll, openDiscourse } = useApp();
+  const { t, isArabic } = useLanguage();
   const [manifestoOpen, setManifestoOpen] = useState(false);
 
   // Dynamic countdown states
@@ -38,31 +40,33 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, []);
 
+  const arrow = isArabic ? "←" : "→";
+
   return (
     <>
-      {/* 1. HERO SECTION (Matches screen.png) */}
+      {/* 1. HERO SECTION */}
       <section className="hero-section">
         <div className="container">
           <div className="hero-grid">
             {/* Left Content */}
             <div className="hero-content reveal">
               <span className="pill-badge hero-pill">
-                MODERN JURISPRUDENCE
+                {t("MODERN JURISPRUDENCE")}
               </span>
 
               <h1 className="display-lg hero-title">
-                Master the Architecture of Law.
+                {t("Master the Architecture of Law.")}
               </h1>
 
               <p className="body-lg hero-description">
-                A rigorous, contemporary approach to legal education. We strip
-                away the archaic to focus on structural integrity, critical
-                analysis, and the pure mechanics of justice in the digital age.
+                {t(
+                  "A rigorous, contemporary approach to legal education. We strip away the archaic to focus on structural integrity, critical analysis, and the pure mechanics of justice in the digital age."
+                )}
               </p>
 
               <div className="hero-actions">
                 <Link href="/courses" className="btn btn-primary">
-                  EXPLORE CURRICULUM
+                  {t("EXPLORE CURRICULUM")}
                 </Link>
                 <button
                   type="button"
@@ -75,7 +79,7 @@ export default function HomePage() {
                       <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
                   </span>
-                  VIEW MANIFESTO
+                  {t("VIEW MANIFESTO")}
                 </button>
               </div>
             </div>
@@ -103,36 +107,36 @@ export default function HomePage() {
           <div className="metrics-grid">
             <div className="metric-item reveal delay-75">
               <span className="metric-number">98.4%</span>
-              <span className="metric-label">Bar & Tribunal Examination Pass Rate</span>
+              <span className="metric-label">{t("Bar & Tribunal Examination Pass Rate")}</span>
             </div>
             <div className="metric-item reveal delay-150">
               <span className="metric-number">45+</span>
-              <span className="metric-label">Accredited Specialization Modules</span>
+              <span className="metric-label">{t("Accredited Specialization Modules")}</span>
             </div>
             <div className="metric-item reveal delay-200">
               <span className="metric-number">140+</span>
-              <span className="metric-label">Partner Chambers, Firms & Tribunals</span>
+              <span className="metric-label">{t("Partner Chambers, Firms & Tribunals")}</span>
             </div>
             <div className="metric-item reveal delay-300">
               <span className="metric-number">12:1</span>
-              <span className="metric-label">Candidate Fellow to Senior Jurist Ratio</span>
+              <span className="metric-label">{t("Candidate Fellow to Senior Jurist Ratio")}</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. LIVE DISCOURSE SECTION (Matches screen.png) */}
+      {/* 3. LIVE DISCOURSE SECTION */}
       <section className="discourse-section">
         <div className="container">
           <div className="section-header flex-header reveal">
             <div>
-              <h2 className="section-title">Live Discourse</h2>
+              <h2 className="section-title">{t("Live Discourse")}</h2>
               <p className="section-subhead">
-                Join our faculty for imminent interrogations of contemporary legal frameworks.
+                {t("Join our faculty for imminent interrogations of contemporary legal frameworks.")}
               </p>
             </div>
             <Link href="/courses" className="section-header-link">
-              ALL SESSIONS &rarr;
+              {t("ALL SESSIONS")} {arrow}
             </Link>
           </div>
 
@@ -141,7 +145,7 @@ export default function HomePage() {
             <div className="discourse-card reveal delay-100">
               <div>
                 <div className="discourse-card-top">
-                  <span className="pill-badge dark">SEMINAR</span>
+                  <span className="pill-badge dark">{t("SEMINAR")}</span>
                   <div className="discourse-card-icon" title="Legal Philosophy & Rights">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
@@ -150,11 +154,13 @@ export default function HomePage() {
                 </div>
 
                 <h3 className="discourse-card-title">
-                  Constitutional Tensions in Digital Privacy
+                  {t("Constitutional Tensions in Digital Privacy")}
                 </h3>
 
                 <p className="discourse-card-desc">
-                  Prof. Elena Rostova explores the friction between 4th Amendment principles and pervasive algorithmic data collection.
+                  {t(
+                    "Prof. Elena Rostova explores the friction between 4th Amendment principles and pervasive algorithmic data collection."
+                  )}
                 </p>
               </div>
 
@@ -162,24 +168,24 @@ export default function HomePage() {
                 <div className="countdown-box">
                   <div className="countdown-unit">
                     <span className="countdown-digits">{time1.days}</span>
-                    <span className="countdown-label">DAYS</span>
+                    <span className="countdown-label">{t("DAYS")}</span>
                   </div>
                   <div className="countdown-unit">
                     <span className="countdown-digits">{time1.hours}</span>
-                    <span className="countdown-label">HRS</span>
+                    <span className="countdown-label">{t("HRS")}</span>
                   </div>
                   <div className="countdown-unit">
                     <span className="countdown-digits">{time1.minutes}</span>
-                    <span className="countdown-label">MIN</span>
+                    <span className="countdown-label">{t("MIN")}</span>
                   </div>
                 </div>
 
                 <button
                   type="button"
                   className="btn btn-outline"
-                  onClick={() => openDiscourse("Constitutional Tensions in Digital Privacy")}
+                  onClick={() => openDiscourse(t("Constitutional Tensions in Digital Privacy"))}
                 >
-                  REGISTER
+                  {t("REGISTER")}
                 </button>
               </div>
             </div>
@@ -189,7 +195,7 @@ export default function HomePage() {
               <div>
                 <div className="discourse-card-top">
                   <span className="pill-badge" style={{ backgroundColor: "var(--neutral-stone)" }}>
-                    WORKSHOP
+                    {t("WORKSHOP")}
                   </span>
                   <div className="discourse-card-icon" title="Courtroom & Judicial Precedent">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -199,11 +205,13 @@ export default function HomePage() {
                 </div>
 
                 <h3 className="discourse-card-title">
-                  Corporate Liability in AI Decisions
+                  {t("Corporate Liability in AI Decisions")}
                 </h3>
 
                 <p className="discourse-card-desc">
-                  Analyzing precedent and liability assignment when algorithmic systems cause demonstrable financial and societal harm.
+                  {t(
+                    "Analyzing precedent and liability assignment when algorithmic systems cause demonstrable financial and societal harm."
+                  )}
                 </p>
               </div>
 
@@ -211,24 +219,24 @@ export default function HomePage() {
                 <div className="countdown-box">
                   <div className="countdown-unit">
                     <span className="countdown-digits">{time2.days}</span>
-                    <span className="countdown-label">DAYS</span>
+                    <span className="countdown-label">{t("DAYS")}</span>
                   </div>
                   <div className="countdown-unit">
                     <span className="countdown-digits">{time2.hours}</span>
-                    <span className="countdown-label">HRS</span>
+                    <span className="countdown-label">{t("HRS")}</span>
                   </div>
                   <div className="countdown-unit">
                     <span className="countdown-digits">{time2.minutes}</span>
-                    <span className="countdown-label">MIN</span>
+                    <span className="countdown-label">{t("MIN")}</span>
                   </div>
                 </div>
 
                 <button
                   type="button"
                   className="btn btn-outline"
-                  onClick={() => openDiscourse("Corporate Liability in AI Decisions")}
+                  onClick={() => openDiscourse(t("Corporate Liability in AI Decisions"))}
                 >
-                  REGISTER
+                  {t("REGISTER")}
                 </button>
               </div>
             </div>
@@ -236,13 +244,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. CURATED PROGRAMS SECTION (Matches screen.png) */}
+      {/* 4. CURATED PROGRAMS SECTION */}
       <section className="programs-section">
         <div className="container">
           <div className="section-header reveal">
-            <h2 className="section-title">Curated Programs</h2>
+            <h2 className="section-title">{t("Curated Programs")}</h2>
             <p className="section-subhead">
-              Structured pathways designed to impart absolute mastery over specific legal domains.
+              {t("Structured pathways designed to impart absolute mastery over specific legal domains.")}
             </p>
           </div>
 
@@ -253,11 +261,13 @@ export default function HomePage() {
               onClick={() => openSyllabus("jd-essentials")}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => { if (e.key === "Enter") openSyllabus("jd-essentials"); }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") openSyllabus("jd-essentials");
+              }}
             >
               <div>
                 <div className="program-card-top">
-                  <span className="program-meta-track">CORE TRACK</span>
+                  <span className="program-meta-track">{t("CORE TRACK")}</span>
                   <div style={{ color: "var(--outline)" }}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                       <path d="M3 21h18M4 18h16M6 18V9M10 18V9M14 18V9M18 18V9M2 9l10-5 10 5" />
@@ -266,18 +276,20 @@ export default function HomePage() {
                 </div>
 
                 <h3 className="program-card-title">
-                  JurisDoctorate (JD) Essentials
+                  {t("JurisDoctorate (JD) Essentials")}
                 </h3>
 
                 <p className="program-card-desc">
-                  The foundational architecture of legal reasoning, contracts, and torts. Rigorous analysis of precedent and judicial interpretation for the modern era.
+                  {t(
+                    "The foundational architecture of legal reasoning, contracts, and torts. Rigorous analysis of precedent and judicial interpretation for the modern era."
+                  )}
                 </p>
               </div>
 
               <div className="program-card-footer">
-                <span>14 WEEKS &bull; 45 CLE CREDITS</span>
+                <span>{t("14 WEEKS • 45 CLE CREDITS")}</span>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  VIEW SYLLABUS &rarr;
+                  {t("VIEW SYLLABUS")} {arrow}
                 </span>
               </div>
             </div>
@@ -290,7 +302,9 @@ export default function HomePage() {
                 onClick={() => openSyllabus("intl-treaties")}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => { if (e.key === "Enter") openSyllabus("intl-treaties"); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") openSyllabus("intl-treaties");
+                }}
               >
                 <div>
                   <div className="program-card-icon">
@@ -301,15 +315,15 @@ export default function HomePage() {
                     </svg>
                   </div>
                   <h4 className="program-card-title">
-                    International Law & Treaties
+                    {t("International Law & Treaties")}
                   </h4>
                   <p className="program-card-desc">
-                    Navigating the complex webs of cross-border jurisdiction and supranational agreements.
+                    {t("Navigating the complex webs of cross-border jurisdiction and supranational agreements.")}
                   </p>
                 </div>
                 <div className="program-card-footer">
-                  <span>12 MODULES</span>
-                  <span>&rarr;</span>
+                  <span>{t("12 MODULES")}</span>
+                  <span>{arrow}</span>
                 </div>
               </div>
 
@@ -319,29 +333,31 @@ export default function HomePage() {
                 onClick={() => openSyllabus("tech-ip")}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => { if (e.key === "Enter") openSyllabus("tech-ip"); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") openSyllabus("tech-ip");
+                }}
               >
                 <div>
                   <div className="program-card-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                       <rect x="4" y="4" width="16" height="16" rx="2" />
                       <rect x="9" y="9" width="6" height="6" />
-                      <line x1="9" y1="1" x2="9" y2="4" />
-                      <line x1="15" y1="1" x2="15" y2="4" />
+                      <line x1="9" y1="2" x2="9" y2="4" />
+                      <line x1="15" y1="2" x2="15" y2="4" />
                       <line x1="9" y1="20" x2="9" y2="23" />
                       <line x1="15" y1="20" x2="15" y2="23" />
                     </svg>
                   </div>
                   <h4 className="program-card-title">
-                    Technology & IP Law
+                    {t("Technology & IP Law")}
                   </h4>
                   <p className="program-card-desc">
-                    Protecting innovation in an era of rapid technological disruption and AI models.
+                    {t("Protecting innovation in an era of rapid technological disruption and AI models.")}
                   </p>
                 </div>
                 <div className="program-card-footer">
-                  <span>8 MODULES</span>
-                  <span>&rarr;</span>
+                  <span>{t("8 MODULES")}</span>
+                  <span>{arrow}</span>
                 </div>
               </div>
 
@@ -351,7 +367,9 @@ export default function HomePage() {
                 onClick={() => openSyllabus("corporate-restructure")}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => { if (e.key === "Enter") openSyllabus("corporate-restructure"); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") openSyllabus("corporate-restructure");
+                }}
               >
                 <div>
                   <div className="program-card-icon">
@@ -360,19 +378,19 @@ export default function HomePage() {
                     </svg>
                   </div>
                   <h4 className="program-card-title">
-                    Corporate Restructuring
+                    {t("Corporate Restructuring")}
                   </h4>
                   <p className="program-card-desc">
-                    The mechanics of bankruptcy, cross-border mergers, and massive structural shifts.
+                    {t("The mechanics of bankruptcy, cross-border mergers, and massive structural shifts.")}
                   </p>
                 </div>
                 <div className="program-card-footer">
-                  <span>10 MODULES</span>
-                  <span>&rarr;</span>
+                  <span>{t("10 MODULES")}</span>
+                  <span>{arrow}</span>
                 </div>
               </div>
 
-              {/* Subcard 4: Solid Black Accent Card (Matches screen.png) */}
+              {/* Subcard 4: Solid Black Accent Card */}
               <div className="program-card program-card-black reveal-scale delay-250">
                 <div style={{ color: "#ffffff", opacity: 0.8 }}>
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -381,13 +399,13 @@ export default function HomePage() {
                   </svg>
                 </div>
                 <h4 className="program-card-title">
-                  View Syllabus Directory
+                  {t("View Syllabus Directory")}
                 </h4>
                 <p className="program-card-desc">
-                  Explore all 45+ specialized programs and sovereign jurisprudence modules.
+                  {t("Explore all 45+ specialized programs and sovereign jurisprudence modules.")}
                 </p>
                 <Link href="/courses" className="btn btn-outline-white">
-                  BROWSE ALL
+                  {t("BROWSE ALL")}
                 </Link>
               </div>
             </div>
@@ -400,13 +418,13 @@ export default function HomePage() {
         <div className="container">
           <div className="section-header flex-header reveal">
             <div>
-              <h2 className="section-title">The Jurists & Scholars</h2>
+              <h2 className="section-title">{t("The Jurists & Scholars")}</h2>
               <p className="section-subhead">
-                Instruction led by senior jurists, former appellate justices, and supreme court advocates.
+                {t("Instruction led by senior jurists, former appellate justices, and supreme court advocates.")}
               </p>
             </div>
             <Link href="/instructors" className="section-header-link">
-              MEET FULL FACULTY &rarr;
+              {t("MEET FULL FACULTY →")}
             </Link>
           </div>
 
@@ -422,13 +440,13 @@ export default function HomePage() {
                 />
               </div>
               <div className="faculty-info">
-                <h4 className="faculty-name">Prof. Elena Rostova</h4>
-                <span className="faculty-chair">Constitutional Law & Cyber Rights</span>
+                <h4 className="faculty-name">{t("Prof. Elena Rostova")}</h4>
+                <span className="faculty-chair">{t("Constitutional Law & Cyber Rights")}</span>
                 <p className="faculty-bio">
-                  Former advisor to the European Court of Human Rights. Leading authority on digital Fourth Amendment privacy and algorithmic surveillance.
+                  {t("Prof. Elena Rostova explores the friction between 4th Amendment principles and pervasive algorithmic data collection.")}
                 </p>
                 <Link href="/instructors" className="faculty-link">
-                  VIEW DOSSIER &rarr;
+                  {t("VIEW DOSSIER →")}
                 </Link>
               </div>
             </div>
@@ -444,13 +462,13 @@ export default function HomePage() {
                 />
               </div>
               <div className="faculty-info">
-                <h4 className="faculty-name">Hon. Marcus Vance</h4>
-                <span className="faculty-chair">Appellate Procedure & Solvency</span>
+                <h4 className="faculty-name">{t("Hon. Marcus Vance")}</h4>
+                <span className="faculty-chair">{t("Appellate Procedure & Solvency")}</span>
                 <p className="faculty-bio">
-                  Former Federal Appellate Judge with 28 years presiding over major corporate reorganizations and complex commercial litigation.
+                  {t("Former Federal Appellate Judge with 28 years presiding over major corporate reorganizations and complex commercial litigation.")}
                 </p>
                 <Link href="/instructors" className="faculty-link">
-                  VIEW DOSSIER &rarr;
+                  {t("VIEW DOSSIER →")}
                 </Link>
               </div>
             </div>
@@ -466,13 +484,13 @@ export default function HomePage() {
                 />
               </div>
               <div className="faculty-info">
-                <h4 className="faculty-name">Dr. Tariq Al-Mansoor</h4>
-                <span className="faculty-chair">International Treaties & Arbitration</span>
+                <h4 className="faculty-name">{t("Dr. Tariq Al-Mansoor")}</h4>
+                <span className="faculty-chair">{t("International Treaties & Arbitration")}</span>
                 <p className="faculty-bio">
-                  Senior Arbitrator at the Permanent Court of Arbitration in The Hague. Counsel on cross-border treaty disputes and sovereign claims.
+                  {t("Senior Arbitrator at the Permanent Court of Arbitration in The Hague. Counsel on cross-border treaty disputes and sovereign claims.")}
                 </p>
                 <Link href="/instructors" className="faculty-link">
-                  VIEW DOSSIER &rarr;
+                  {t("VIEW DOSSIER →")}
                 </Link>
               </div>
             </div>
@@ -488,13 +506,13 @@ export default function HomePage() {
                 />
               </div>
               <div className="faculty-info">
-                <h4 className="faculty-name">Prof. Sarah Sterling</h4>
-                <span className="faculty-chair">AI Liability & Intellectual Property</span>
+                <h4 className="faculty-name">{t("Prof. Sarah Sterling")}</h4>
+                <span className="faculty-chair">{t("AI Liability & Intellectual Property")}</span>
                 <p className="faculty-bio">
-                  Special Master on generative neural net copyright and synthetic intelligence liability frameworks across US and EU jurisdictions.
+                  {t("Special Master on generative neural net copyright and synthetic intelligence liability frameworks across US and EU jurisdictions.")}
                 </p>
                 <Link href="/instructors" className="faculty-link">
-                  VIEW DOSSIER &rarr;
+                  {t("VIEW DOSSIER →")}
                 </Link>
               </div>
             </div>
@@ -508,23 +526,23 @@ export default function HomePage() {
           <div className="cta-box reveal-scale">
             <div>
               <span className="pill-badge" style={{ backgroundColor: "rgba(255, 255, 255, 0.12)", color: "#ffffff", borderColor: "rgba(255,255,255,0.2)", marginBottom: "16px" }}>
-                ROLLING MATRICULATION
+                {t("ROLLING MATRICULATION")}
               </span>
-              <h2>Admissions for Michaelmas & Hilary Terms</h2>
+              <h2>{t("Admissions for Michaelmas & Hilary Terms")}</h2>
               <p>
-                Applications for specialized fellowships and CLE certifications are reviewed by the Academic Senate. Join an uncompromising community of legal practitioners.
+                {t("Applications for specialized fellowships and CLE certifications are reviewed by the Academic Senate. Join an uncompromising community of legal practitioners.")}
               </p>
             </div>
             <div className="cta-buttons">
               <button
                 type="button"
                 className="btn btn-outline-white"
-                onClick={() => openEnroll("Admissions Fellowship Application")}
+                onClick={() => openEnroll(t("Admissions Fellowship Application"))}
               >
-                APPLY FOR FELLOWSHIP
+                {t("APPLY FOR FELLOWSHIP")}
               </button>
               <Link href="/contact" className="btn btn-primary" style={{ backgroundColor: "#ffffff", color: "#000000" }}>
-                CONTACT ADMISSIONS
+                {t("CONTACT ADMISSIONS")}
               </Link>
             </div>
           </div>
@@ -535,7 +553,9 @@ export default function HomePage() {
       {manifestoOpen && (
         <div
           className="modal-backdrop"
-          onClick={(e) => { if (e.target === e.currentTarget) setManifestoOpen(false); }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setManifestoOpen(false);
+          }}
         >
           <div className="modal-card" style={{ maxWidth: "700px" }}>
             <button
@@ -546,16 +566,16 @@ export default function HomePage() {
               &times;
             </button>
             <span className="pill-badge" style={{ marginBottom: "16px" }}>
-              INSTITUTE MANIFESTO
+              {t("INSTITUTE MANIFESTO")}
             </span>
             <h3 className="headline-lg" style={{ marginBottom: "16px" }}>
-              The Philosophy of Modern Jurisprudence
+              {t("The Philosophy of Modern Jurisprudence")}
             </h3>
             <p className="body-md" style={{ marginBottom: "16px" }}>
-              Legal institutions cannot remain static while commerce, sovereign borders, and computational intelligence fundamentally re-architect society.
+              {t("Legal institutions cannot remain static while commerce, sovereign borders, and computational intelligence fundamentally re-architect society.")}
             </p>
             <p className="body-md" style={{ marginBottom: "16px" }}>
-              At SRS Legal Institute (Al-Qanun), we strip away procedural bloat to focus on structural rigor. We teach jurisprudence not as historical trivia, but as the underlying operating system of civilization.
+              {t("At SRS Legal Institute (Al-Qanun), we strip away procedural bloat to focus on structural rigor. We teach jurisprudence not as historical trivia, but as the underlying operating system of civilization.")}
             </p>
             <div style={{ marginTop: "28px", borderTop: "1px solid var(--border-hairline)", paddingTop: "20px" }}>
               <button
@@ -563,7 +583,7 @@ export default function HomePage() {
                 className="btn btn-primary"
                 onClick={() => setManifestoOpen(false)}
               >
-                Return to Curriculum
+                {t("Return to Curriculum")}
               </button>
             </div>
           </div>

@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function DiscourseModal() {
   const { isDiscourseOpen, closeDiscourse, discourseTitle, triggerToast } = useApp();
+  const { t } = useLanguage();
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", affiliation: "" });
 
@@ -16,7 +18,12 @@ export default function DiscourseModal() {
     setTimeout(() => {
       setSubmitting(false);
       closeDiscourse();
-      triggerToast(`Registration Confirmed for "${discourseTitle}". Calendar invitation & pre-reading dispatched.`);
+      triggerToast(
+        t(
+          "Registration Confirmed for \"{title}\". Calendar invitation & pre-reading dispatched.",
+          { title: t(discourseTitle) }
+        )
+      );
       setForm({ name: "", email: "", affiliation: "" });
     }, 900);
   };
@@ -33,28 +40,28 @@ export default function DiscourseModal() {
           type="button"
           className="modal-close-btn"
           onClick={closeDiscourse}
-          aria-label="Close modal"
+          aria-label={t("Close")}
         >
           &times;
         </button>
 
         <span className="pill-badge" style={{ marginBottom: "16px" }}>
-          LIVE DISCOURSE ACCESS
+          {t("LIVE DISCOURSE ACCESS")}
         </span>
 
         <h3 className="headline-lg" style={{ marginBottom: "8px" }}>
-          Colloquium Registration
+          {t("Colloquium Registration")}
         </h3>
 
         <p className="body-md" style={{ marginBottom: "28px" }}>
-          Session: <strong>{discourseTitle}</strong>.
-          Interactive Socratic participation is strictly limited to 60 jurists and fellows.
+          {t("Session:")} <strong>{t(discourseTitle)}</strong>.{" "}
+          {t("Interactive Socratic participation is strictly limited to 60 jurists and fellows.")}
         </p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label" htmlFor="discourse-name">
-              Full Name & Title
+              {t("Full Name & Title")}
             </label>
             <input
               id="discourse-name"
@@ -69,7 +76,7 @@ export default function DiscourseModal() {
 
           <div className="form-group">
             <label className="form-label" htmlFor="discourse-email">
-              Institutional Email
+              {t("Institutional / Chambers Email")}
             </label>
             <input
               id="discourse-email"
@@ -84,7 +91,7 @@ export default function DiscourseModal() {
 
           <div className="form-group">
             <label className="form-label" htmlFor="discourse-affiliation">
-              Institutional Affiliation or Chambers
+              {t("Institutional Affiliation or Chambers")}
             </label>
             <input
               id="discourse-affiliation"
@@ -103,7 +110,7 @@ export default function DiscourseModal() {
               style={{ flex: 1 }}
               onClick={closeDiscourse}
             >
-              Cancel
+              {t("Cancel")}
             </button>
             <button
               type="submit"
@@ -111,7 +118,7 @@ export default function DiscourseModal() {
               style={{ flex: 1.5 }}
               disabled={submitting}
             >
-              {submitting ? "Securing Seat..." : "Reserve My Seat"}
+              {submitting ? t("Securing Seat...") : t("Reserve My Seat")}
             </button>
           </div>
         </form>

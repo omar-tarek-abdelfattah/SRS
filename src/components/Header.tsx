@@ -5,11 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useApp } from "@/context/AppContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { openEnroll } = useApp();
+  const { t, language, toggleLanguage } = useLanguage();
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -44,7 +46,7 @@ export default function Header() {
                   href={link.href}
                   className={`nav-link ${isActive ? "active" : ""}`}
                 >
-                  {link.label}
+                  {t(link.label)}
                 </Link>
               );
             })}
@@ -52,13 +54,28 @@ export default function Header() {
 
           {/* Action Buttons */}
           <div className="header-actions">
+            {/* Language Switcher */}
+            <button
+              type="button"
+              className="btn-lang-toggle"
+              onClick={toggleLanguage}
+              aria-label={language === "ar" ? "Switch to English" : "التبديل إلى العربية"}
+              title={language === "ar" ? "Switch to English" : "التبديل إلى العربية"}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+              <span>{language === "ar" ? "English" : "العربية"}</span>
+            </button>
 
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => openEnroll("General Admissions")}
+              onClick={() => openEnroll(t("General Admissions"))}
             >
-              Enroll Now
+              {t("Enroll Now")}
             </button>
             <button
               type="button"
@@ -90,10 +107,31 @@ export default function Header() {
               className={`nav-link ${isActive ? "active" : ""}`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              {link.label}
+              {t(link.label)}
             </Link>
           );
         })}
+
+        {/* Mobile Language Switcher */}
+        <div style={{ marginTop: "12px", borderTop: "1px solid var(--border-hairline)", paddingTop: "12px" }}>
+          <button
+            type="button"
+            className="btn-lang-toggle"
+            style={{ width: "100%", justifyContent: "center" }}
+            onClick={() => {
+              toggleLanguage();
+              setMobileMenuOpen(false);
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            <span>{language === "ar" ? "Switch to English" : "التبديل إلى العربية"}</span>
+          </button>
+        </div>
+
         <div style={{ display: "flex", gap: "10px", marginTop: "12px" }}>
           <button
             type="button"
@@ -101,10 +139,10 @@ export default function Header() {
             style={{ flex: 1 }}
             onClick={() => {
               setMobileMenuOpen(false);
-              openEnroll("Student Portal Login");
+              openEnroll(t("Student Portal Login"));
             }}
           >
-            Login
+            {t("Login")}
           </button>
           <button
             type="button"
@@ -112,10 +150,10 @@ export default function Header() {
             style={{ flex: 1 }}
             onClick={() => {
               setMobileMenuOpen(false);
-              openEnroll("General Admissions");
+              openEnroll(t("General Admissions"));
             }}
           >
-            Enroll Now
+            {t("Enroll Now")}
           </button>
         </div>
       </div>

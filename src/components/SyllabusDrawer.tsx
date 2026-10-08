@@ -2,9 +2,11 @@
 
 import React from "react";
 import { useApp } from "@/context/AppContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function SyllabusDrawer() {
   const { activeSyllabus, closeSyllabus, openEnroll } = useApp();
+  const { t } = useLanguage();
 
   if (!activeSyllabus) return null;
 
@@ -19,13 +21,13 @@ export default function SyllabusDrawer() {
         <div className="drawer-header">
           <div>
             <span className="pill-badge" style={{ marginBottom: "12px" }}>
-              {activeSyllabus.track}
+              {t(activeSyllabus.track)}
             </span>
             <h3 className="headline-lg" style={{ fontSize: "28px" }}>
-              {activeSyllabus.title}
+              {t(activeSyllabus.title)}
             </h3>
             <p className="label-md" style={{ color: "var(--secondary)", marginTop: "6px" }}>
-              {activeSyllabus.duration}
+              {t(activeSyllabus.duration)}
             </p>
           </div>
           <button
@@ -33,7 +35,7 @@ export default function SyllabusDrawer() {
             className="modal-close-btn"
             style={{ position: "static" }}
             onClick={closeSyllabus}
-            aria-label="Close syllabus"
+            aria-label={t("Close")}
           >
             &times;
           </button>
@@ -41,7 +43,7 @@ export default function SyllabusDrawer() {
 
         <div className="drawer-body">
           <p className="body-md" style={{ marginBottom: "20px" }}>
-            {activeSyllabus.description}
+            {t(activeSyllabus.description)}
           </p>
 
           <div
@@ -54,23 +56,23 @@ export default function SyllabusDrawer() {
             }}
           >
             <span className="label-md" style={{ color: "var(--outline)" }}>
-              FACULTY CHAIR
+              {t("FACULTY CHAIR")}
             </span>
             <div style={{ fontWeight: 600, fontSize: "15px", marginTop: "4px" }}>
-              {activeSyllabus.faculty}
+              {t(activeSyllabus.faculty)}
             </div>
           </div>
 
           <h4 className="headline-sm" style={{ fontSize: "20px", marginBottom: "16px" }}>
-            Curriculum Sequence & Modules
+            {t("Curriculum Sequence & Modules")}
           </h4>
 
           <div className="syllabus-timeline">
             {activeSyllabus.modules.map((mod, idx) => (
               <div key={idx} className="syllabus-module">
-                <span className="syllabus-module-week">{mod.week}</span>
-                <h5 className="syllabus-module-title">{mod.title}</h5>
-                <p className="syllabus-module-desc">{mod.desc}</p>
+                <span className="syllabus-module-week">{t(mod.week)}</span>
+                <h5 className="syllabus-module-title">{t(mod.title)}</h5>
+                <p className="syllabus-module-desc">{t(mod.desc)}</p>
               </div>
             ))}
           </div>
@@ -82,7 +84,7 @@ export default function SyllabusDrawer() {
             className="btn btn-outline"
             onClick={closeSyllabus}
           >
-            Close
+            {t("Close")}
           </button>
           <button
             type="button"
@@ -90,10 +92,10 @@ export default function SyllabusDrawer() {
             onClick={() => {
               const title = activeSyllabus.title;
               closeSyllabus();
-              openEnroll(title);
+              openEnroll(t(title));
             }}
           >
-            Apply For This Track
+            {t("Apply For This Track")}
           </button>
         </div>
       </div>

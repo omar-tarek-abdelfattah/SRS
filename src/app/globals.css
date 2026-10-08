@@ -1102,6 +1102,7 @@ img {
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  margin-top: 14px;
 }
 
 .filter-pill {
@@ -2029,5 +2030,149 @@ textarea.form-control {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   ARABIC FIRST (RTL) & BILINGUAL DESIGN ENHANCEMENTS
+   ========================================================================== */
+
+/* Language Toggle Button in Header */
+.btn-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background-color: var(--surface-container-low);
+  color: var(--on-surface);
+  border: 1px solid var(--border-hairline);
+  padding: 8px 14px;
+  border-radius: var(--radius-base);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.btn-lang-toggle:hover {
+  background-color: var(--surface-container-high);
+  border-color: var(--outline);
+  transform: translateY(-1px);
+  color: var(--primary);
+}
+
+.btn-lang-toggle svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.btn-lang-toggle:hover svg {
+  transform: rotate(30deg);
+}
+
+/* Arabic Typography & Direction */
+html[lang="ar"],
+[dir="rtl"] {
+  --font-serif: var(--font-cairo), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-cairo), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-cairo), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: right;
+}
+
+/* Crucial Arabic Cursive Fix: Reset positive letter-spacing */
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6,
+[dir="rtl"] .display-lg,
+[dir="rtl"] .display-md,
+[dir="rtl"] .headline-lg,
+[dir="rtl"] .headline-md,
+[dir="rtl"] .headline-sm,
+[dir="rtl"] .pill-badge,
+[dir="rtl"] .btn,
+[dir="rtl"] .nav-link,
+[dir="rtl"] .label-md,
+[dir="rtl"] .countdown-label,
+[dir="rtl"] .program-meta-track,
+[dir="rtl"] .instructor-honorific,
+[dir="rtl"] .dossier-item-label,
+[dir="rtl"] .footer-links,
+[dir="rtl"] .footer-link {
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  font-feature-settings: "cv01" on, "cv02" on;
+}
+
+/* RTL Header nav bar link underline animation */
+[dir="rtl"] .nav-link::after {
+  left: auto;
+  right: 0;
+}
+
+/* RTL Search Input Icon & Padding */
+[dir="rtl"] .search-input-group .search-icon {
+  left: auto;
+  right: 14px;
+}
+
+[dir="rtl"] .search-input-group .search-input {
+  padding-left: 16px;
+  padding-right: 42px;
+  text-align: right;
+}
+
+/* RTL Drawer placement */
+[dir="rtl"] .drawer-panel {
+  right: auto;
+  left: 0;
+}
+
+/* RTL Syllabus Timeline */
+[dir="rtl"] .syllabus-module {
+  border-left: none;
+  border-right: 2px solid var(--primary);
+  padding-left: 0;
+  padding-right: 20px;
+}
+
+[dir="rtl"] .syllabus-module::before {
+  left: auto;
+  right: -5px;
+}
+
+/* RTL Modal Close Button */
+[dir="rtl"] .modal-close-btn {
+  right: auto;
+  left: 24px;
+}
+
+/* RTL Form Controls */
+[dir="rtl"] .form-control {
+  text-align: right;
+}
+
+[dir="rtl"] .select-control {
+  background-position: left 14px center;
+  padding-left: 36px;
+  padding-right: 14px;
+}
+
+/* RTL FAQ Icon */
+[dir="rtl"] .faq-trigger {
+  text-align: right;
+}
+
+[dir="rtl"] .faq-icon {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Smooth layout transitions */
+body {
+  transition: direction 0.3s ease;
+}
+
 
 

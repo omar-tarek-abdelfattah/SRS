@@ -1,22 +1,31 @@
 "use client";
 
 import React, { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
+  const { t, isArabic } = useLanguage();
   const phoneNumber = "201224928057";
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-    "Hello SRS Legal Institute, I would like to inquire about admissions and programs."
-  )}`;
+
+  const message = isArabic
+    ? "مرحباً، أود الاستفسار عن القبول والبرامج الدراسية في معهد إس آر إس القانوني."
+    : "Hello SRS Legal Institute, I would like to inquire about admissions and programs.";
+
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
-    <div className="fixed bottom-7 right-7 z-50 flex items-center justify-end">
+    <div
+      className={`fixed bottom-7 z-50 flex items-center ${
+        isArabic ? "left-7 justify-start" : "right-7 justify-end"
+      }`}
+    >
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="relative flex h-[52px] w-[52px] items-center justify-center rounded bg-black text-white shadow-lg border border-white/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a1e24] hover:border-white/40 hover:shadow-xl"
-        aria-label="Direct Chambers WhatsApp: +20 12 24928057"
+        aria-label={`${t("Direct Chambers WhatsApp")}: +20 12 24928057`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -37,12 +46,20 @@ export default function WhatsAppButton() {
 
       {/* Elegant Architectural Tooltip */}
       <div
-        className={`pointer-events-none absolute right-[calc(100%+14px)] whitespace-nowrap rounded border border-white/15 bg-black px-3.5 py-2 text-white shadow-xl transition-all duration-200 ${
-          isHovered ? "translate-x-0 opacity-100" : "translate-x-2 opacity-0"
+        className={`pointer-events-none absolute whitespace-nowrap rounded border border-white/15 bg-black px-3.5 py-2 text-white shadow-xl transition-all duration-200 ${
+          isArabic ? "left-[calc(100%+14px)]" : "right-[calc(100%+14px)]"
+        } ${
+          isHovered
+            ? "translate-x-0 opacity-100"
+            : isArabic
+            ? "-translate-x-2 opacity-0"
+            : "translate-x-2 opacity-0"
         }`}
         role="tooltip"
       >
-        <div className="font-serif text-sm font-semibold tracking-wide text-white">+20 12 24928057</div>
+        <div className="text-sm font-semibold tracking-wide text-white" dir="ltr">
+          +20 12 24928057
+        </div>
       </div>
     </div>
   );

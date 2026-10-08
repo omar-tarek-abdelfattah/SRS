@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface CourseItem {
   id: string;
@@ -86,17 +87,27 @@ const COURSES_DATA: CourseItem[] = [
 
 export default function CoursesPage() {
   const { openSyllabus, openEnroll } = useApp();
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const filteredCourses = COURSES_DATA.filter((course) => {
     const matchesCategory =
       selectedCategory === "all" || course.category === selectedCategory;
+    const translatedTitle = t(course.title);
+    const translatedSummary = t(course.summary);
+    const translatedFaculty = t(course.faculty);
+    const term = searchTerm.toLowerCase();
+
     const matchesSearch =
       !searchTerm ||
-      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.faculty.toLowerCase().includes(searchTerm.toLowerCase());
+      course.title.toLowerCase().includes(term) ||
+      course.summary.toLowerCase().includes(term) ||
+      course.faculty.toLowerCase().includes(term) ||
+      translatedTitle.toLowerCase().includes(term) ||
+      translatedSummary.toLowerCase().includes(term) ||
+      translatedFaculty.toLowerCase().includes(term);
+
     return matchesCategory && matchesSearch;
   });
 
@@ -107,13 +118,15 @@ export default function CoursesPage() {
         <div className="container">
           <div className="page-hero-inner">
             <span className="pill-badge" style={{ marginBottom: "16px" }}>
-              ACADEMIC CURRICULA
+              {t("ACADEMIC CURRICULA")}
             </span>
             <h1 className="display-md page-hero-title">
-              Curated Programs & Syllabus Directory
+              {t("Curated Programs & Syllabus Directory")}
             </h1>
             <p className="body-lg">
-              Structured pathways engineered for practicing advocates, corporate counsels, and judiciary candidates seeking mastery in modern jurisprudential doctrines.
+              {t(
+                "Structured pathways engineered for practicing advocates, corporate counsels, and judiciary candidates seeking mastery in modern jurisprudential doctrines."
+              )}
             </p>
           </div>
         </div>
@@ -134,7 +147,7 @@ export default function CoursesPage() {
               <input
                 type="text"
                 className="search-input"
-                placeholder="Search curricula by doctrine, topic, or faculty..."
+                placeholder={t("Search curricula by doctrine, topic, or faculty...")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -147,42 +160,42 @@ export default function CoursesPage() {
                 className={`filter-pill ${selectedCategory === "all" ? "active" : ""}`}
                 onClick={() => setSelectedCategory("all")}
               >
-                All Curricula ({COURSES_DATA.length})
+                {t("All Curricula")} ({COURSES_DATA.length})
               </button>
               <button
                 type="button"
                 className={`filter-pill ${selectedCategory === "foundational" ? "active" : ""}`}
                 onClick={() => setSelectedCategory("foundational")}
               >
-                Foundational JD
+                {t("Foundational JD")}
               </button>
               <button
                 type="button"
                 className={`filter-pill ${selectedCategory === "tech" ? "active" : ""}`}
                 onClick={() => setSelectedCategory("tech")}
               >
-                Technology & AI Law
+                {t("Technology & AI Law")}
               </button>
               <button
                 type="button"
                 className={`filter-pill ${selectedCategory === "corporate" ? "active" : ""}`}
                 onClick={() => setSelectedCategory("corporate")}
               >
-                Corporate Restructuring
+                {t("Corporate Restructuring")}
               </button>
               <button
                 type="button"
                 className={`filter-pill ${selectedCategory === "intl" ? "active" : ""}`}
                 onClick={() => setSelectedCategory("intl")}
               >
-                International Treaties
+                {t("International Treaties")}
               </button>
               <button
                 type="button"
                 className={`filter-pill ${selectedCategory === "constitutional" ? "active" : ""}`}
                 onClick={() => setSelectedCategory("constitutional")}
               >
-                Constitutional Privacy
+                {t("Constitutional Privacy")}
               </button>
             </div>
           </div>
@@ -194,10 +207,10 @@ export default function CoursesPage() {
         <div className="container">
           <div style={{ marginBottom: "28px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span className="label-md" style={{ color: "var(--outline)" }}>
-              SHOWING {filteredCourses.length} PROGRAM{filteredCourses.length === 1 ? "" : "S"}
+              {t("SHOWING")} {filteredCourses.length} {filteredCourses.length === 1 ? t("PROGRAM") : t("PROGRAMS")}
             </span>
             <span className="label-md" style={{ color: "var(--secondary)" }}>
-              ALL PROGRAMS CLE & SRA ACCREDITED
+              {t("ALL PROGRAMS CLE & SRA ACCREDITED")}
             </span>
           </div>
 
@@ -206,29 +219,29 @@ export default function CoursesPage() {
               <div key={course.id} className="course-card">
                 <div>
                   <div className="course-badge-row">
-                    <span className="pill-badge">{course.track}</span>
+                    <span className="pill-badge">{t(course.track)}</span>
                     <span className="label-md" style={{ color: "var(--outline)" }}>
-                      {course.level}
+                      {t(course.level)}
                     </span>
                   </div>
 
-                  <h3 className="course-title">{course.title}</h3>
-                  <p className="course-summary">{course.summary}</p>
+                  <h3 className="course-title">{t(course.title)}</h3>
+                  <p className="course-summary">{t(course.summary)}</p>
                 </div>
 
                 <div>
                   <div className="course-meta-list">
                     <div className="course-meta-item">
-                      <span className="course-meta-label">Duration</span>
-                      <span className="course-meta-val">{course.duration}</span>
+                      <span className="course-meta-label">{t("Duration")}</span>
+                      <span className="course-meta-val">{t(course.duration)}</span>
                     </div>
                     <div className="course-meta-item">
-                      <span className="course-meta-label">Credits</span>
-                      <span className="course-meta-val">{course.cle}</span>
+                      <span className="course-meta-label">{t("Credits")}</span>
+                      <span className="course-meta-val">{t(course.cle)}</span>
                     </div>
                     <div className="course-meta-item" style={{ gridColumn: "span 2" }}>
-                      <span className="course-meta-label">Faculty Lead</span>
-                      <span className="course-meta-val">{course.faculty}</span>
+                      <span className="course-meta-label">{t("Faculty Lead")}</span>
+                      <span className="course-meta-val">{t(course.faculty)}</span>
                     </div>
                   </div>
 
@@ -238,14 +251,14 @@ export default function CoursesPage() {
                       className="btn btn-outline"
                       onClick={() => openSyllabus(course.id)}
                     >
-                      View Syllabus
+                      {t("View Syllabus")}
                     </button>
                     <button
                       type="button"
                       className="btn btn-primary"
-                      onClick={() => openEnroll(course.title)}
+                      onClick={() => openEnroll(t(course.title))}
                     >
-                      Apply Now
+                      {t("Apply Now")}
                     </button>
                   </div>
                 </div>
@@ -256,10 +269,10 @@ export default function CoursesPage() {
           {filteredCourses.length === 0 && (
             <div style={{ textAlign: "center", padding: "80px 0" }}>
               <h3 className="headline-lg" style={{ marginBottom: "12px" }}>
-                No Matching Programs Found
+                {t("No Matching Programs Found")}
               </h3>
               <p className="body-md" style={{ marginBottom: "24px" }}>
-                Try adjusting your search criteria or explore our foundational syllabus.
+                {t("Try adjusting your search criteria or explore our foundational syllabus.")}
               </p>
               <button
                 type="button"
@@ -269,7 +282,7 @@ export default function CoursesPage() {
                   setSearchTerm("");
                 }}
               >
-                Reset Curricula Filters
+                {t("Reset Curricula Filters")}
               </button>
             </div>
           )}
@@ -281,11 +294,11 @@ export default function CoursesPage() {
         <div className="container">
           <div className="section-header" style={{ textAlign: "center" }}>
             <span className="pill-badge" style={{ marginBottom: "14px" }}>
-              PEDAGOGICAL ARCHITECTURE
+              {t("PEDAGOGICAL ARCHITECTURE")}
             </span>
-            <h2 className="section-title">The SRS Learning Standard</h2>
+            <h2 className="section-title">{t("The SRS Learning Standard")}</h2>
             <p className="section-subhead">
-              We blend classical Socratic methods with modern algorithmic legal simulations.
+              {t("We blend classical Socratic methods with modern algorithmic legal simulations.")}
             </p>
           </div>
 
@@ -293,37 +306,37 @@ export default function CoursesPage() {
             <div className="metric-item">
               <span className="metric-number">01</span>
               <span className="metric-label" style={{ color: "var(--primary)", fontSize: "14px", marginBottom: "8px" }}>
-                Socratic Interrogations
+                {t("Socratic Interrogations")}
               </span>
               <p className="body-md" style={{ fontSize: "14px", lineHeight: "22px" }}>
-                Bi-weekly live video colloquia dissecting active court cases with sitting federal and supranational judges.
+                {t("Bi-weekly live video colloquia dissecting active court cases with sitting federal and supranational judges.")}
               </p>
             </div>
             <div className="metric-item">
               <span className="metric-number">02</span>
               <span className="metric-label" style={{ color: "var(--primary)", fontSize: "14px", marginBottom: "8px" }}>
-                Asynchronous Moot Bench
+                {t("Asynchronous Moot Bench")}
               </span>
               <p className="body-md" style={{ fontSize: "14px", lineHeight: "22px" }}>
-                Submit briefs and recorded oral arguments reviewed by high-court fellows with line-by-line judicial annotations.
+                {t("Submit briefs and recorded oral arguments reviewed by high-court fellows with line-by-line judicial annotations.")}
               </p>
             </div>
             <div className="metric-item">
               <span className="metric-number">03</span>
               <span className="metric-label" style={{ color: "var(--primary)", fontSize: "14px", marginBottom: "8px" }}>
-                Verifiable Credentials
+                {t("Verifiable Credentials")}
               </span>
               <p className="body-md" style={{ fontSize: "14px", lineHeight: "22px" }}>
-                Cryptographically signed CLE certificates recognized across prominent bar associations and arbitral tribunals.
+                {t("Cryptographically signed CLE certificates recognized across prominent bar associations and arbitral tribunals.")}
               </p>
             </div>
             <div className="metric-item">
               <span className="metric-number">04</span>
               <span className="metric-label" style={{ color: "var(--primary)", fontSize: "14px", marginBottom: "8px" }}>
-                Institutional Network
+                {t("Institutional Network")}
               </span>
               <p className="body-md" style={{ fontSize: "14px", lineHeight: "22px" }}>
-                Direct access to chambers, international tribunals in The Hague, and premier corporate restructuring teams.
+                {t("Direct access to chambers, international tribunals in The Hague, and premier corporate restructuring teams.")}
               </p>
             </div>
           </div>

@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactPage() {
   const { triggerToast } = useApp();
+  const { t } = useLanguage();
   const [submitting, setSubmitting] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -22,7 +24,11 @@ export default function ContactPage() {
 
     setTimeout(() => {
       setSubmitting(false);
-      triggerToast("Formal Petition Dispatched to the Institute Registry. You will receive an official response within 24 hours.");
+      triggerToast(
+        t(
+          "Formal Petition Dispatched to the Institute Registry. You will receive an official response within 24 hours."
+        )
+      );
       setForm({
         name: "",
         email: "",
@@ -63,13 +69,15 @@ export default function ContactPage() {
         <div className="container">
           <div className="page-hero-inner">
             <span className="pill-badge" style={{ marginBottom: "16px" }}>
-              INSTITUTIONAL REGISTRY
+              {t("INSTITUTIONAL REGISTRY")}
             </span>
             <h1 className="display-md page-hero-title">
-              Inquiries & Institutional Access
+              {t("Inquiries & Institutional Access")}
             </h1>
             <p className="body-lg">
-              Connect with the Academic Registry, Admissions Senate, or Chambers Administration regarding fellowships, corporate cohorts, or faculty colloquia.
+              {t(
+                "Connect with the Academic Registry, Admissions Senate, or Chambers Administration regarding fellowships, corporate cohorts, or faculty colloquia."
+              )}
             </p>
           </div>
         </div>
@@ -81,16 +89,18 @@ export default function ContactPage() {
           {/* Left: Contact Form Panel */}
           <div className="contact-form-panel">
             <h2 className="headline-lg" style={{ marginBottom: "8px" }}>
-              Submit Formal Petition
+              {t("Submit Formal Petition")}
             </h2>
             <p className="body-md" style={{ marginBottom: "32px" }}>
-              Please complete the inquiry dossier below. All communications are protected under academic attorney-client privilege guidelines.
+              {t(
+                "Please complete the inquiry dossier below. All communications are protected under academic attorney-client privilege guidelines."
+              )}
             </p>
 
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label className="form-label" htmlFor="contact-name">
-                  Full Name & Title
+                  {t("Full Name & Title")}
                 </label>
                 <input
                   id="contact-name"
@@ -105,7 +115,7 @@ export default function ContactPage() {
 
               <div className="form-group">
                 <label className="form-label" htmlFor="contact-email">
-                  Institutional / Chambers Email
+                  {t("Institutional / Chambers Email")}
                 </label>
                 <input
                   id="contact-email"
@@ -120,7 +130,7 @@ export default function ContactPage() {
 
               <div className="form-group">
                 <label className="form-label" htmlFor="contact-inquiry">
-                  Nature of Inquiry
+                  {t("Nature of Inquiry")}
                 </label>
                 <select
                   id="contact-inquiry"
@@ -128,17 +138,17 @@ export default function ContactPage() {
                   value={form.inquiryType}
                   onChange={(e) => setForm({ ...form, inquiryType: e.target.value })}
                 >
-                  <option value="Admissions & Matriculation">Admissions & Fellowships</option>
-                  <option value="Firm & Corporate Licensing">Chambers & Firm Cohort Licensing</option>
-                  <option value="Continuing Legal Education">CLE / CPD Accreditation Verification</option>
-                  <option value="Faculty & Academic Collaboration">Academic Colloquium & Research</option>
-                  <option value="Press & Institutional Affairs">Press & Judicial Communications</option>
+                  <option value="Admissions & Matriculation">{t("Admissions & Fellowships")}</option>
+                  <option value="Firm & Corporate Licensing">{t("Chambers & Firm Cohort Licensing")}</option>
+                  <option value="Continuing Legal Education">{t("CLE / CPD Accreditation Verification")}</option>
+                  <option value="Faculty & Academic Collaboration">{t("Academic Colloquium & Research")}</option>
+                  <option value="Press & Institutional Affairs">{t("Press & Judicial Communications")}</option>
                 </select>
               </div>
 
               <div className="form-group">
                 <label className="form-label" htmlFor="contact-jurisdiction">
-                  Primary Jurisdiction of Concern
+                  {t("Primary Jurisdiction of Concern")}
                 </label>
                 <select
                   id="contact-jurisdiction"
@@ -156,7 +166,7 @@ export default function ContactPage() {
 
               <div className="form-group">
                 <label className="form-label" htmlFor="contact-message">
-                  Statement of Intent / Inquiry Details
+                  {t("Statement of Intent / Inquiry Details")}
                 </label>
                 <textarea
                   id="contact-message"
@@ -174,7 +184,7 @@ export default function ContactPage() {
                 style={{ width: "100%", marginTop: "12px" }}
                 disabled={submitting}
               >
-                {submitting ? "Transmitting to Registry..." : "Transmit Formal Petition"}
+                {submitting ? t("Transmitting to Registry...") : t("Transmit Formal Petition")}
               </button>
             </form>
           </div>
@@ -184,16 +194,16 @@ export default function ContactPage() {
             {/* Global Chambers */}
             <div className="chambers-card">
               <span className="pill-badge" style={{ marginBottom: "12px" }}>
-                PERMANENT REGISTRIES
+                {t("PERMANENT REGISTRIES")}
               </span>
-              <h3 className="chambers-title">Global Institute Chambers</h3>
+              <h3 className="chambers-title">{t("Global Institute Chambers")}</h3>
               <p className="body-md" style={{ fontSize: "14px" }}>
-                Physical offices and moot court simulation facilities for matriculated fellows.
+                {t("Physical offices and moot court simulation facilities for matriculated fellows.")}
               </p>
 
               <div className="chambers-list">
                 <div className="chamber-location-item">
-                  <div className="chamber-city">London Chambers</div>
+                  <div className="chamber-city">{t("London Chambers")}</div>
                   <div className="chamber-address">
                     12 Lincoln&apos;s Inn Fields, Holborn<br />
                     London WC2A 3TL, United Kingdom<br />
@@ -202,7 +212,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="chamber-location-item">
-                  <div className="chamber-city">New York Registry</div>
+                  <div className="chamber-city">{t("New York Registry")}</div>
                   <div className="chamber-address">
                     450 Lexington Avenue, 28th Floor<br />
                     New York, NY 10017, United States<br />
@@ -211,7 +221,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="chamber-location-item">
-                  <div className="chamber-city">Geneva Bureau</div>
+                  <div className="chamber-city">{t("Geneva Bureau")}</div>
                   <div className="chamber-address">
                     14 Rue du Rhône, Quartier des Banques<br />
                     1204 Genève, Switzerland<br />
@@ -224,27 +234,27 @@ export default function ContactPage() {
             {/* Direct Admissions Hotline */}
             <div className="chambers-card">
               <span className="pill-badge" style={{ marginBottom: "12px" }}>
-                REGISTRAR DESK
+                {t("REGISTRAR DESK")}
               </span>
-              <h3 className="chambers-title">Admissions Hotline</h3>
+              <h3 className="chambers-title">{t("Admissions Hotline")}</h3>
               <p className="body-md" style={{ fontSize: "14px", marginBottom: "16px" }}>
-                Direct channels for prospective fellows, corporate deans, and CLE registrars.
+                {t("Direct channels for prospective fellows, corporate deans, and CLE registrars.")}
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px", fontSize: "14px" }}>
                 <div>
-                  <strong>General Inquiries:</strong>{" "}
+                  <strong>{t("General Inquiries:")}</strong>{" "}
                   <a href="mailto:admissions@srslegal.org" style={{ textDecoration: "underline" }}>
                     admissions@srslegal.org
                   </a>
                 </div>
                 <div>
-                  <strong>Academic Senate:</strong>{" "}
+                  <strong>{t("Academic Senate:")}</strong>{" "}
                   <a href="mailto:senate@srslegal.org" style={{ textDecoration: "underline" }}>
                     senate@srslegal.org
                   </a>
                 </div>
                 <div>
-                  <strong>Firm Enterprise Partnerships:</strong>{" "}
+                  <strong>{t("Firm Enterprise Partnerships:")}</strong>{" "}
                   <a href="mailto:partnerships@srslegal.org" style={{ textDecoration: "underline" }}>
                     partnerships@srslegal.org
                   </a>
@@ -268,7 +278,7 @@ export default function ContactPage() {
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.71 4.3 3.79.6.26 1.07.42 1.44.54.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.12-.23-.19-.48-.31" />
                     </svg>
-                    <span>Direct WhatsApp: +20 12 24928057</span>
+                    <span>{t("Direct WhatsApp: +20 12 24928057")}</span>
                   </a>
                 </div>
               </div>
@@ -282,11 +292,11 @@ export default function ContactPage() {
         <div className="container">
           <div className="section-header" style={{ textAlign: "center" }}>
             <span className="pill-badge" style={{ marginBottom: "14px" }}>
-              INSTITUTIONAL PROTOCOLS
+              {t("INSTITUTIONAL PROTOCOLS")}
             </span>
-            <h2 className="section-title">Frequently Examined Inquiries</h2>
+            <h2 className="section-title">{t("Frequently Examined Inquiries")}</h2>
             <p className="section-subhead">
-              Details on matriculation, grading standards, CLE certifications, and moot participation.
+              {t("Details on matriculation, grading standards, CLE certifications, and moot participation.")}
             </p>
           </div>
 
@@ -301,11 +311,11 @@ export default function ContactPage() {
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
                     aria-expanded={isOpen}
                   >
-                    <span>{faq.q}</span>
+                    <span>{t(faq.q)}</span>
                     <span className="faq-icon">{isOpen ? "−" : "+"}</span>
                   </button>
                   <div className="faq-content">
-                    {faq.a}
+                    {t(faq.a)}
                   </div>
                 </div>
               );
